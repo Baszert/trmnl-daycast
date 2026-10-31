@@ -81,5 +81,5 @@ custom_fields:
   - 12-hour: '12'
   default: auto
 name: Daycast
-description: What's the weather like in the next 24 hours?
+description: Weather for the next 24 hours
 refresh_interval: 60
