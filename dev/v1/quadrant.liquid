@@ -1,0 +1,16 @@
+<div class="layout wx-layout">
+  <div class="wx wx--quadrant" data-view="quadrant" {{ wx_attrs }}>
+    <script type="application/json" class="wx-data">{{ wx_json }}</script>
+    <svg class="wx-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="wx-head">
+      <div class="wx-main">
+        <span class="label label--small wx-up" data-wx="kicker"></span>
+        <div class="wx-now">
+          <span class="value value--large" data-wx="temp"></span>
+          <div class="wx-words"><span class="title title--small" data-wx="title"></span><span class="description" data-wx="sub"></span></div>
+        </div>
+      </div>
+      {{ wx_stats }}
+    </div>
+  </div>
+</div>

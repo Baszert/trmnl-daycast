@@ -1,0 +1,22 @@
+<div class="layout wx-layout">
+  <div class="wx wx--half_vertical w--full h--full" data-view="half_vertical" {{ wx_attrs }}>
+    <script type="application/json" class="wx-data">{{ wx_json }}</script>
+    <svg class="wx-svg absolute inset--0" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="wx-head absolute flex flex--row flex--between">
+      <div class="wx-main flex flex--col flex--left">
+        <span class="wx-place title title--base lg:title--large text--bold" data-wx="place"></span>
+        <span class="wx-date description lg:description--large lg:text--regular" data-wx="date"></span>
+        <div class="wx-now flex flex--row flex--center-y flex--left">
+          <span class="wx-temp value value--xlarge lg:value--xxlarge" data-wx="temp"></span>
+          <svg class="wx-nowicon" viewBox="0 0 24 24" data-wx-icon="now"></svg>
+          <div class="wx-words flex flex--col flex--left gap--xsmall"><span class="wx-cond text--base lg:text--large text--bold" data-wx="title"></span><span class="wx-sub description lg:description--large lg:text--regular" data-wx="sub"></span></div>
+        </div>
+      </div>
+      <div class="wx-stats flex flex--row gap--large">
+        <div class="wx-stat flex flex--col flex--left gap--xsmall"><span class="wx-k label label--small lg:label--base" data-wx="windl"></span><span class="wx-v text--base lg:text--large text--bold" data-wx="wind"></span></div>
+        <div class="wx-stat flex flex--col flex--left gap--xsmall"><span class="wx-k label label--small lg:label--base" data-wx="rainl"></span><span class="wx-v text--base lg:text--large text--bold" data-wx="rain"></span></div>
+        <div class="wx-stat flex flex--col flex--left gap--xsmall"><span class="wx-k label label--small lg:label--base" data-wx="sunl"></span><span class="wx-v text--base lg:text--large text--bold" data-wx="sun"></span></div>
+      </div>
+    </div>
+  </div>
+</div>

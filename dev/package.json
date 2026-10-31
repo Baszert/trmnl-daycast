@@ -1,0 +1,1 @@
+{ "name": "daycast-dev", "private": true, "type": "module", "dependencies": { "liquidjs": "10.19.0" } }

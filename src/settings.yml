@@ -1,0 +1,85 @@
+---
+strategy: polling
+no_screen_padding: 'yes'
+dark_mode: 'no'
+static_data: ''
+polling_verb: get
+framework_version: 3.4.4
+serverless_language: ''
+refresh_interval_floor: ''
+polling_url: 'https://api.open-meteo.com/v1/forecast?latitude={{ lat_lon | split: "," | first | strip }}&longitude={{ lat_lon | split: "," | last | strip }}&hourly=temperature_2m,apparent_temperature,precipitation,cloud_cover,weather_code,wind_speed_10m,wind_direction_10m&daily=sunrise,sunset&timezone=auto&forecast_days=3&timeformat=unixtime'
+polling_headers: ''
+polling_body: ''
+id: 506012
+oauth_enabled: 'false'
+oauth_pkce_enabled: 'no'
+custom_fields:
+- keyname: about
+  field_type: author_bio
+  name: About This Plugin
+  category: environment,life
+  github_url: https://github.com/Baszert/trmnl-daycast
+  description: Today's weather, at a glance. How warm it is now, when the rain comes, and how the day unfolds hour by hour in one clean chart. Anywhere on Earth, in 12 languages.
+  email_address: trmnl@achtnegen.nl
+- keyname: lat_lon
+  field_type: lat_lon
+  name: Location
+  description: Search for a city or postal code, or type latitude,longitude.
+  default: 52.0907,5.1214
+- keyname: place_name
+  field_type: string
+  name: Place name
+  description: Shown at the top. Leave empty to show only the date.
+  placeholder: Utrecht
+  optional: true
+- keyname: language
+  field_type: select
+  name: Language
+  description: Auto follows your TRMNL account language.
+  options:
+  - Auto: auto
+  - English: en
+  - Nederlands: nl
+  - Deutsch: de
+  - Français: fr
+  - Español: es
+  - Italiano: it
+  - Português: pt
+  - Svenska: sv
+  - Dansk: da
+  - Norsk: nb
+  - Polski: pl
+  - Suomi: fi
+  default: auto
+- keyname: units
+  field_type: select
+  name: Units
+  description: Auto uses °F and inches for US English, °C and millimetres otherwise.
+  options:
+  - Auto: auto
+  - Metric: metric
+  - Imperial: imperial
+  default: auto
+- keyname: wind
+  field_type: select
+  name: Wind
+  description: Auto uses Beaufort in Dutch, m/s in the Nordic languages, mph for imperial units and km/h otherwise.
+  options:
+  - Auto: auto
+  - Beaufort: bft
+  - km/h: kmh
+  - m/s: ms
+  - mph: mph
+  default: auto
+- keyname: clock
+  field_type: select
+  name: Clock
+  description: Auto uses 12-hour times for US English, 24-hour otherwise.
+  options:
+  - Auto: auto
+  - 24-hour: '24'
+  - 12-hour: '12'
+  default: auto
+name: Daycast
+description: What's the weather like in the next 24 hours?
+refresh_interval: 60
