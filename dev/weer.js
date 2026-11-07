@@ -107,7 +107,7 @@
     var rain = mm < 0.1 ? T.dry : cfg.imp ? dec(mm / 25.4, mm / 25.4 < 1 ? 2 : 1) + ' in' : dec(mm, mm < 10 ? 1 : 0) + ' mm';
     var sun = null;
     for (var i = 0; i < sr.length && !sun; i++) { if (sr[i] > now) sun = [T.rise, sr[i], 'sunrise']; else if (ss[i] > now) sun = [T.set, ss[i], 'sunset']; }
-    var day = new Intl.DateTimeFormat(cfg.locale, { weekday: 'long', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(now + off)).replace('.', '');
+    var day = new Intl.DateTimeFormat(cfg.locale, { weekday: 'long', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(now + off)).replace(/\.$/, '');
     return {
       now: now, t0: t0, off: off, at: at, hourly: hourly, isDay: isDay, temp: temp, deg: deg, hourLabel: hourLabel, sunIcon: sun ? sun[2] : 'sunrise', nowIcon: kind(hourly('weather_code', now), isDay(now), hourly('cloud_cover', now)), mmUnit: cfg.imp ? 'in/h' : 'mm/h', imp: cfg.imp, locale: cfg.locale,
       tmin: temp(tmin), tmax: temp(tmax), maxmm: 0,
@@ -125,10 +125,10 @@
   /* ---------- drawing: Inter at fixed sizes, hairlines, rain as a shaded area, a pill for now ---------- */
   var FONT = "var(--framework-typeface, 'Inter Variable'), 'Inter Variable', Inter, sans-serif";
   var VIEW = {
-    full: { hours: 24, every: 3, icon: 26, gap: 30, rain: 40, val: 17, hour: 13, legend: true },
-    half_horizontal: { hours: 24, every: 3, icon: 18, gap: 10, rain: 16, val: 13, hour: 12 },
-    half_vertical: { hours: 12, every: 2, icon: 22, gap: 26, rain: 30, val: 15, hour: 12 },
-    quadrant: { hours: 12, every: 3, icon: 18, gap: 10, rain: 14, val: 13, hour: 12 }
+    full: { hours: 24, every: 3, icon: 26, gap: 30, rain: 40, val: 22, hour: 17, legend: true },
+    half_horizontal: { hours: 24, every: 3, icon: 18, gap: 10, rain: 16, val: 16, hour: 14 },
+    half_vertical: { hours: 12, every: 2, icon: 22, gap: 26, rain: 30, val: 19, hour: 15 },
+    quadrant: { hours: 12, every: 3, icon: 18, gap: 10, rain: 14, val: 16, hour: 14 }
   };
   function palette(root) {
     var cls = (root.closest('.screen') || {}).className || '';
@@ -151,7 +151,7 @@
   }
   function draw(root, M, P, lg) {
     var svg = root.querySelector('.wx-svg'), W = Math.round(root.clientWidth), HH = Math.round(root.clientHeight), view = root.dataset.view, V = Object.assign({}, VIEW[view] || VIEW.full);
-    if (W < 320 * (lg ? 1.3 : 1)) { V.hours = 12; V.every = 3; V.icon = Math.min(V.icon, 18); V.val = Math.min(V.val, 13); }
+    if (W < 320 * (lg ? 1.3 : 1)) { V.hours = 12; V.every = 3; V.icon = Math.min(V.icon, 18); V.val = Math.min(V.val, 15); V.hour = Math.min(V.hour, 14); }
     if (!W || !HH) return;
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + HH); svg.setAttribute('width', W); svg.setAttribute('height', HH);
     svg.innerHTML = '';
@@ -187,8 +187,8 @@
     if (maxmm >= 0.05) el('path', { d: monotone(mm.map(function (p) { return [p[0], ry(p[1])]; })) + 'L' + f(X1) + ' ' + f(base) + 'L' + f(X0) + ' ' + f(base) + 'Z', fill: SHADE, class: 'wx-rain' }, svg);
     for (var x = X0; x < X1; x += 4 * u) el('rect', { x: f(x), y: f(rainTop), width: 1, height: 1, fill: INK }, svg);
     if (V.legend) {
-      var lab = (M.imp ? (scale / 25.4).toLocaleString(M.locale) : scale) + ' ' + M.mmUnit, lg2 = txt(X1 - 5 * u, rainTop + 15 * u, lab, 11, 500, 'end'), lw = lg2.getComputedTextLength() + 10 * u;
-      svg.insertBefore(el('rect', { x: f(X1 - lw), y: f(rainTop + 3 * u), width: f(lw), height: f(16 * u), fill: PAPER }, svg), lg2);
+      var lab = (M.imp ? (scale / 25.4).toLocaleString(M.locale) : scale) + ' ' + M.mmUnit, lg2 = txt(X1 - 5 * u, rainTop + 17 * u, lab, 13, 500, 'end'), lw = lg2.getComputedTextLength() + 10 * u;
+      svg.insertBefore(el('rect', { x: f(X1 - lw), y: f(rainTop + 3 * u), width: f(lw), height: f(19 * u), fill: PAPER }, svg), lg2);
     }
     el('rect', { x: f(X0), y: f(base), width: f(X1 - X0), height: 1, fill: INK }, svg);
 
